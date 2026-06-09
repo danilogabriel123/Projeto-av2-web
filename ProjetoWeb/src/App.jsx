@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { estaAutenticado } from './servicos/autenticacao';
 
 import Header from './componentes/Header';
@@ -9,7 +9,6 @@ import ListaProdutos from './componentes/ListaProdutos';
 import DetalheProduto from './paginas/DetalheProduto';
 import Carrinho from './componentes/Carrinho';
 import Checkout from './paginas/Checkout';
-
 import './App.css';
 
 const RotaProtegida = ({ children }) => {
@@ -17,6 +16,18 @@ const RotaProtegida = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
   return children;
+};
+
+const HeaderCondicional = ({ quantidadeItensCarrinho }) => {
+  const localizacao = useLocation();
+
+  const rotasSemHeader = ['/login', '/cadastro'];
+
+  if (rotasSemHeader.includes(localizacao.pathname)) {
+    return null;
+  }
+
+  return <Header quantidadeItensCarrinho={quantidadeItensCarrinho} />;
 };
 
 const App = () => {
@@ -68,7 +79,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Header quantidadeItensCarrinho={quantidadeItensCarrinho} />
+      <HeaderCondicional quantidadeItensCarrinho={quantidadeItensCarrinho} />
 
       <main className="conteudo-principal">
         <Routes>

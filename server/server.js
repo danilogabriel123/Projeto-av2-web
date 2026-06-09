@@ -1,3 +1,6 @@
+require('dotenv').config();
+console.log(process.env.MONGO_URI);
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
@@ -6,113 +9,53 @@ const mongoose = require('mongoose');
 const verificarToken = require('./middlewares/verificarToken');
 const Usuario = require('./modelos/Usuario');
 const Pedido = require('./modelos/Pedido');
+const Produto = require('./modelos/Produto')
+const preencherBancoSeVazio = require('./banco_config/preencherBanco')
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORTA = 5000;
-const SEGREDO_JWT = 'meu_segredo_secreto_troque_em_producao';
+const PORTA = process.env.PORTA || 5000;
+const SEGREDO_JWT = process.env.SEGREDO_JWT;
 const TEMPO_EXPIRACAO_TOKEN = '7d';
 const RODADAS_CRIPTOGRAFIA = 10;
-const MONGO_URI = 'mongodb+srv://danilogabriel123:hJ6xuGLCnLNUpwnN@rafa-cosmeticos.dx4hf8q.mongodb.net/rafa-cosmeticos?appName=Rafa-Cosmeticos';
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose.connect(MONGO_URI)
-  .then(() => console.log('✅ Conectado ao MongoDB com sucesso!'))
+  .then(() => {
+    console.log('✅ Conectado ao MongoDB Atlas com sucesso!');
+    preencherBancoSeVazio();
+  })
   .catch((erro) => console.error('❌ Erro ao conectar ao MongoDB:', erro.message));
-
-const listaDeProdutos = [
-  {
-    id: 1,
-    nome: "Essencial",
-    preco: 279.90,
-    descricao: "teste.",
-    imagem: "https://images.pedidos2.natura.net/image/sku/145x145/76420_1.jpg"
-  },
-  {
-    id: 2,
-    nome: "Desodorante Colônia Kaiak Masculino",
-    preco: 149.90,
-    descricao: "teste",
-    imagem: ""
-  },
-  {
-    id: 3,
-    nome: "Tododia Algodão Hidratante",
-    preco: 62.90,
-    descricao: "teste",
-    imagem: ""
-  },
-  {
-    id: 4,
-    nome: "Perfume Una Feminino",
-    preco: 219.90,
-    descricao: "teste",
-    imagem: ""
-  },
-  {
-    id: 5,
-    nome: "teste",
-    preco: 189.90,
-    descricao: "Reduz rugas e linhas de expressão. Fórmula com ativo vegetal de alta performance.",
-    imagem: ""
-  },
-  {
-    id: 6,
-    nome: "Shampoo Plant Cachos",
-    preco: 59.90,
-    descricao: "teste",
-    imagem: ""
-  },
-  {
-    id: 7,
-    nome: "Óleo Corporal Ekos Maracujá",
-    preco: 79.90,
-    descricao: "teste",
-    imagem: ""
-  },
-  {
-    id: 8,
-    nome: "Batom Faces Color Vermelho",
-    preco: 34.90,
-    descricao: "teste",
-    imagem: ""
-  },
-  {
-    id: 9,
-    nome: "Protetor Solar Tododia FPS 50",
-    preco: 89.90,
-    descricao: "teste",
-    imagem: ""
-  },
-  {
-    id: 10,
-    nome: "Kit Presente Ekos Pitanga",
-    preco: 159.90,
-    descricao: "teste",
-    imagem: ""
-  }
-];
 
 app.get('/', (req, res) => {
   res.send("O servidor está online e pronto para receber requisições.");
 });
 
-app.get('/api/produtos', (req, res) => {
+app.get('/api/produtos', async (req, res) => {
   console.log("O front-end solicitou a lista de produtos.");
-  res.json(listaDeProdutos);
+  try {
+    const produtos = await Produto.find();
+    res.json(produtos);
+  } catch (erro) {
+    res.status(500).json({ erro: "Erro ao buscar produtos no banco." });
+  }
 });
 
-app.get('/api/produtos/:id', (req, res) => {
-  const idSolicitado = Number(req.params.id);
-  const produtoEncontrado = listaDeProdutos.find(produto => produto.id === idSolicitado);
+app.get('/api/produtos/:id', async (req, res) => {
+  try {
+    const produtoEncontrado = await Produto.findById(req.params.id);
 
-  if (!produtoEncontrado) {
-    return res.status(404).json({ erro: "Produto não encontrado." });
+    if (!produtoEncontrado) {
+      return res.status(404).json({ erro: "Produto não encontrado." });
+    }
+
+    console.log(`Produto visualizado: ${produtoEncontrado.nome}`);
+    res.json(produtoEncontrado);
+  } catch (erro) {
+    res.status(500).json({ erro: "Erro ao buscar detalhes do produto." });
   }
-
-  console.log(`Produto visualizado: ${produtoEncontrado.nome}`);
-  res.json(produtoEncontrado);
 });
 
 app.post('/api/usuarios/cadastro', async (req, res) => {
@@ -223,7 +166,7 @@ app.post('/api/pedidos/checkout', verificarToken, async (req, res) => {
 
 app.listen(PORTA, () => {
   console.log("==================================================");
-  console.log(`  SERVIDOR DA LOJA DA VEIA INICIADO!`);
+  console.log(`  SERVIDOR DA RAFA COSMÉTICOS INICIADO!`);
   console.log(`  Porta: ${PORTA}`);
   console.log(`  Acesse: http://localhost:${PORTA}`);
   console.log("==================================================");

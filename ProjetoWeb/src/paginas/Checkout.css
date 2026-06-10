@@ -16,7 +16,7 @@
   font-family: 'Syne', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #ffffff;
   margin-bottom: 2rem;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .checkout__secao {
-  background: #ffffff;
+  background: #232323;
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
@@ -37,7 +37,7 @@
   font-family: 'Syne', sans-serif;
   font-size: 1rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #ffffff;
   margin-bottom: 1.2rem;
   padding-bottom: 0.8rem;
   border-bottom: 1.5px solid #f0f0f0;
@@ -58,14 +58,14 @@
 .checkout__dado-label {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
-  color: #888;
+  color: #ffffff;
 }
 
 .checkout__dado-valor {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #1a1a1a;
+  color: #ffffff;
 }
 
 .checkout__lista-itens {
@@ -85,17 +85,17 @@
 
 .checkout__item-nome {
   flex: 1;
-  color: #1a1a1a;
+  color: #ffffff;
 }
 
 .checkout__item-quantidade {
-  color: #888;
+  color: #ffffff;
   min-width: 30px;
 }
 
 .checkout__item-subtotal {
   font-weight: 600;
-  color: #1a1a1a;
+  color: #ffffff;
   min-width: 90px;
   text-align: right;
 }
@@ -106,7 +106,7 @@
   font-family: 'Syne', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: #ffffff;
   padding-top: 1rem;
   border-top: 1.5px solid #f0f0f0;
 }

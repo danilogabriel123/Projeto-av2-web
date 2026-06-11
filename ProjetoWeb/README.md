@@ -1,16 +1,81 @@
-# React + Vite
+Projeto AV2 - Web
+=================
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Resumo
+------
 
-Currently, two official plugins are available:
+Este repositório contém uma aplicação web simples com frontend em Vite/React e um backend Node.js. O objetivo é um projeto de comércio eletrônico básico: listar produtos, ver detalhes, cadastrar usuários e processar pedidos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Por que este README?
+--------------------
 
-## React Compiler
+Escrevi este README em linguagem direta — sem jargões — para que qualquer pessoa consiga rodar o projeto e entender sua estrutura rapidamente.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Estrutura principal
+-------------------
 
-## Expanding the ESLint configuration
+- ProjetoWeb/ - frontend (Vite + React).
+- server/ - backend (Node.js, servidor Express ou similar).
+- banco_config/ - scripts para popular o banco de dados.
+- modelos/ - modelos Mongoose (ou equivalente) para Usuario, Produto, Pedido.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Como rodar (passo a passo)
+--------------------------
+
+Requisitos: ter node e npm instalados.
+
+1) Instalar dependências do frontend:
+
+bash
+cd ProjetoWeb
+npm install
+npm run dev
+
+
+Isso deve iniciar o servidor de desenvolvimento do frontend (Vite). Abra o endereço mostrado no terminal (normalmente http://localhost:5173).
+
+2) Instalar e rodar o backend:
+
+bash
+cd server
+npm install
+node server.js
+
+
+Ou verifique package.json dentro de server/ para scripts alternativos (npm start, npm run dev).
+
+3) Banco de dados
+
+Se houver um script para popular o banco de dados, ele está em banco_config/. Execute-o conforme instruções (ex.: node banco_config/preencherBanco.js) — lembre-se de ter o banco em execução e as variáveis de ambiente configuradas.
+
+Variáveis de ambiente importantes
+-------------------------------
+
+- MONGO_URI — string de conexão com o MongoDB.
+- JWT_SECRET — segredo para assinar tokens (se o projeto usar autenticação JWT).
+- PORT — porta do servidor backend (opcional).
+
+Verifique os arquivos de configuração ou a documentação interna para confirmar nomes e formatos exatos.
+
+Scripts úteis
+------------
+
+- Frontend: ver ProjetoWeb/package.json (dev, build, preview).
+- Backend: ver server/package.json (start, dev).
+
+O que você pode testar rápido
+---------------------------
+
+- Abrir a página inicial e verificar a listagem de produtos.
+- Fazer login/cadastro (se implementado) e simular um pedido até a página de checkout.
+
+Dicas e observações
+-------------------
+
+- Se algo não subir, olhe o console do terminal: mensagens de erro normalmente explicam o problema (dependência ausente, porta em uso, variável de ambiente faltando).
+- Para ajustar a API, confira server/server.js e os arquivos em modelos/ e servicos/.
+
+Contribuição
+-----------
+
+Quer melhorar algo? Abra uma issue descrevendo o problema ou envie um pull request com mudanças pequenas e um resumo do que foi alterado.

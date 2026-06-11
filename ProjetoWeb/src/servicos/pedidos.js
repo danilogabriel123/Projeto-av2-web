@@ -1,9 +1,7 @@
-/*
-  Pedidos: função para finalizar checkout (requisição autenticada).
-*/
+/* Pedidos: função para finalizar checkout.*/
 import { requisicao, cabecalhoAutenticado } from './api';
 
-// Finaliza o pedido (POST /pedidos/checkout) — usa header autenticado
+// Finaliza o pedidos 
 const finalizarPedido = async (itens, valorTotal) => {
   const dados = await requisicao('/pedidos/checkout', {
     method: 'POST',

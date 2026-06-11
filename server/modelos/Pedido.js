@@ -1,16 +1,12 @@
-/*
-  Modelo: Pedido (Mongoose)
-  Estrutura de pedido com itens, usuário, total e status.
-*/
 const mongoose = require('mongoose');
 
 const esquemaItemPedido = new mongoose.Schema({
-  // Referência simples ao produto (pode ser id do catálogo)
+  // Referência simples ao produto 
   produtoId: {
     type: Number,
     required: true
   },
-  // Nome do produto no momento da compra (registro histórico)
+  // Nome do produto no momento da compra 
   nome: {
     type: String,
     required: true
@@ -29,7 +25,7 @@ const esquemaItemPedido = new mongoose.Schema({
 });
 
 const esquemaPedido = new mongoose.Schema({
-  // Identificador legível do pedido (ex: 'PED-1234')
+  // Identificador legível do pedido 
   idPedido: {
     type: String,
     required: true,
@@ -41,7 +37,7 @@ const esquemaPedido = new mongoose.Schema({
     ref: 'Usuario',
     required: true
   },
-  // Lista de itens (cada item guarda nome, preço e quantidade)
+  // Lista de itens (cada item tem nome, preço e quantidade)
   itens: [esquemaItemPedido],
   // Soma total do pedido
   valorTotal: {

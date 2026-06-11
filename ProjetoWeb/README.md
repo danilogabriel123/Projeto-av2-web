@@ -4,22 +4,22 @@ Projeto AV2 - Web
 Resumo
 ------
 
-Este repositório contém uma aplicação web simples com frontend em Vite/React e um backend Node.js. O objetivo é um projeto de comércio eletrônico básico: listar produtos, ver detalhes, cadastrar usuários e processar pedidos.
+O objetivo deste projeto é a confecção de um e-commerce basico, com lista de produtos, detalhes, carrinho, cadastro de usuários via banco de dados MongoDB. Ele foi desenvolvido com Node.js para o backend juntamente com Vite e React para o frontend. 
 
 Por que este README?
 --------------------
 
-Escrevi este README em linguagem direta — sem jargões — para que qualquer pessoa consiga rodar o projeto e entender sua estrutura rapidamente.
+Esse README foi desenvolvido para um melhor entendimento sobre o projeto e os requisitos para rodá-lo em sua máquina de forma simples e direta.
 
 Estrutura principal
 -------------------
 
-- ProjetoWeb/ - frontend (Vite + React).
-- server/ - backend (Node.js, servidor Express ou similar).
-- banco_config/ - scripts para popular o banco de dados.
+- ProjetoWeb/ - frontend (Vite + React);
+- server/ - backend (Node.js, servidor Express ou similar);
+- banco_config/ - scripts para popular o banco de dados;
 - modelos/ - modelos Mongoose (ou equivalente) para Usuario, Produto, Pedido.
 
-Como rodar (passo a passo)
+Passo a passo de como rodar o projeto
 --------------------------
 
 Requisitos: ter node e npm instalados.
@@ -78,4 +78,4 @@ Dicas e observações
 Contribuição
 -----------
 
-Quer melhorar algo? Abra uma issue descrevendo o problema ou envie um pull request com mudanças pequenas e um resumo do que foi alterado.
+Se encontar algum erro ou precisar alterar algo para a melhoria do projeto, abra um issue, descreva o problema ou faça um fork, crie uma branch e com as alteraç~oes feitas, abra um Pull Request.
